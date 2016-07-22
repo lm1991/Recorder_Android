@@ -45,12 +45,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         Glide.with(fragment).load(pathList.get(position)).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(fragment.getActivity(), DetailActivity.class);
+                intent.putExtra("path", pathList.get(position));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(fragment.getActivity(), holder.imageView, "content_image");
                 ActivityCompat.startActivity(fragment.getActivity(), intent, options.toBundle());
             }

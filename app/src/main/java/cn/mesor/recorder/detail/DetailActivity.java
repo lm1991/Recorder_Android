@@ -1,7 +1,7 @@
 package cn.mesor.recorder.detail;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -23,12 +23,24 @@ public class DetailActivity extends AppCompatActivity {
     ImageView imageView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        String path = getIntent().getStringExtra("path");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        String path = getIntent().getStringExtra("path");
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle("Record");
+        collapsingToolbar.setExpandedTitleColor(0xffff0000);
+        collapsingToolbar.setCollapsedTitleTextColor(0xff00ff00);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
         Glide.with(this).load(path).into(imageView);
     }
 }

@@ -9,13 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.PermissionChecker;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +19,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.mesor.recorder.R;
-import cn.mesor.recorder.utils.Constants;
+import cn.mesor.recorder.home.adapter.HomeAdapter;
+import cn.mesor.recorder.home.view.PinnedSectionListView;
+import cn.mesor.recorder.info.InfoMessage;
 
 /**
  * Created by Limeng on 2016/7/20.
@@ -31,11 +29,11 @@ import cn.mesor.recorder.utils.Constants;
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.contentList)
-    RecyclerView contentList;
+    PinnedSectionListView contentList;
 
     SwipeRefreshLayout rootView;
 
-    ListAdapter adapter;
+    HomeAdapter adapter;
 
     @Nullable
     @Override
@@ -49,8 +47,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         View rootView = inflater.inflate(R.layout.fragment_home, null);
         this.rootView = (SwipeRefreshLayout) rootView;
         ButterKnife.bind(rootView);
-        contentList = (RecyclerView) rootView.findViewById(R.id.contentList);
-        contentList.setItemAnimator(new DefaultItemAnimator());
+        contentList = (PinnedSectionListView) rootView.findViewById(R.id.contentList);
         initData();
         return rootView;
     }
@@ -70,15 +67,14 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     int count = 0;
 
     private void initData() {
-        contentList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false));
-        List<String> list = new ArrayList<>();
+        List<InfoMessage> list = new ArrayList<>();
 
-        while (count++ < 5) {
-            list.add(Constants.pic_url);
+        while (count++ < 10) {
+            list.add(new InfoMessage());
         }
-        adapter = new ListAdapter(this);
+        adapter = new HomeAdapter(this);
         contentList.setAdapter(adapter);
-        adapter.setContent(list);
+        adapter.setContentList(list);
         rootView.setOnRefreshListener(this);
         rootView.setProgressBackgroundColorSchemeResource(android.R.color.white);
         rootView.setColorSchemeResources(android.R.color.holo_blue_light,
@@ -91,12 +87,12 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                List<String> list = new ArrayList<>();
+                List<InfoMessage> list = new ArrayList<>();
                 for (int index = 0; index < count * 2; index++) {
-                    list.add(Constants.pic_url);
+                    list.add(new InfoMessage());
                 }
                 count *= 2;
-                adapter.setContent(list);
+                adapter.setContentList(list);
                 rootView.setRefreshing(false);
             }
         }, 2000);

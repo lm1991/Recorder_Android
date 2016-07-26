@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="cn.mesor.recorder.message.GalleryFragment">
+
+    <cn.mesor.recorder.message.view.DragImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.93"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gridView"
+        android:background="#fff"
+        android:paddingLeft="@dimen/px_7"
+        android:paddingRight="@dimen/px_7"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/px_7"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

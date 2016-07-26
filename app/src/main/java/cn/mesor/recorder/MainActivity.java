@@ -1,9 +1,9 @@
 package cn.mesor.recorder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,9 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import cn.mesor.recorder.home.HomeFragment;
+import cn.mesor.recorder.message.ChoosePhotoActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int REQUEST_CODE_CREATE_MESSAGE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +33,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, ChoosePhotoActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_CREATE_MESSAGE);
             }
         });
 

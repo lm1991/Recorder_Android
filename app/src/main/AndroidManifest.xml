@@ -40,6 +40,12 @@
         <activity android:name=".filter.MainActivity">
 
         </activity>
+        <activity
+            android:parentActivityName=".MainActivity"
+            android:name=".message.ChoosePhotoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".message.CreateMessageActivity" android:parentActivityName=".message.ChoosePhotoActivity"/>
     </application>
 
 </manifest>
